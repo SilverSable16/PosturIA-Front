@@ -1,12 +1,16 @@
 module.exports = {
-	runtimeCompiler: true,
+  runtimeCompiler: true,
 
-	chainWebpack: config => {
-		config
-			.plugin('html')
-			.tap(args => {
-				args[0].title = 'Muse Vue Ant Design - by Creative Tim'
-				return args
-			})
-	}
+  chainWebpack: config => {
+    config
+      .plugin('html')
+      .tap(args => {
+        args[0].title = 'Muse Vue Ant Design - by Creative Tim'
+        return args
+      })
+  },
+
+  devServer: {
+    port: 4200
+  }
 }
