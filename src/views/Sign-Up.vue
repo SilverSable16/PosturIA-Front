@@ -1,10 +1,18 @@
 <template>
-  <div>
+  <div class="sign-up-container">
+    <!-- Botón Volver arriba derecha -->
+    <router-link to="/Inicio" class="btn-volver">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Volver</span>
+    </router-link>
+
     <!-- Sign Up Image And Headings -->
     <div class="sign-up-header" style="background-image: url('images/bg-signup.jpg')">
       <div class="content">
-        <h1 class="mb-5">Sign Up</h1>
-        <p class="text-lg">Use these awesome forms to login or create new account in your project for free.</p>
+        <h1 class="mb-5">Crear cuenta</h1>
+        <p class="text-lg">Únete a este increíble proyecto que, con ayuda de la IA, te ayudará a llevar una vida saludable.</p>
       </div>
     </div>
     <!-- / Sign Up Image And Headings -->
@@ -12,20 +20,11 @@
     <!-- Sign Up Form -->
     <a-card :bordered="false" class="card-signup header-solid h-full" :bodyStyle="{ paddingTop: 0 }">
       <template #title>
-        <h5 class="font-semibold text-center">Register With</h5>
+        <h5 class="font-semibold text-center">Registrarme</h5>
       </template>
       <div class="sign-up-gateways">
-        <a-button>
-          <img src="images/logos/logos-facebook.svg" alt=""/>
-        </a-button>
-        <a-button>
-          <img src="images/logos/logo-apple.svg" alt=""/>
-        </a-button>
-        <a-button>
-          <img src="images/logos/Google__G__Logo.svg.png" alt=""/>
-        </a-button>
+       
       </div>
-      <p class="text-center my-25 font-semibold text-muted">Or</p>
       <a-form
         id="components-form-demo-normal-login"
         :form="form"
@@ -39,7 +38,7 @@
               'first_name', 
               { rules: [{ required: true, message: 'Please input your first name!' }] } 
             ]"
-            placeholder="First Name"
+            placeholder="Nombre"
           />
         </a-form-item>
 
@@ -50,7 +49,7 @@
               'last_name', 
               { rules: [{ required: true, message: 'Please input your last name!' }] } 
             ]"
-            placeholder="Last Name"
+            placeholder="Apellido"
           />
         </a-form-item>
 
@@ -73,7 +72,7 @@
               { rules: [{ required: true, message: 'Please input your Password!' }] } 
             ]"
             type="password"
-            placeholder="Password"
+            placeholder="Contraseña"
           />
         </a-form-item>
 
@@ -85,7 +84,7 @@
               { rules: [{ required: true, message: 'Please input your date of birth!' }] } 
             ]"
             type="date"
-            placeholder="Date of Birth"
+            placeholder="Cumpleaños"
           />
         </a-form-item>
 
@@ -96,36 +95,21 @@
               'phone_number', 
               { rules: [{ required: true, message: 'Please input your phone number!' }] } 
             ]"
-            placeholder="Phone Number"
+            placeholder="Celular"
           />
-        </a-form-item>
-
-        <!-- Terms and Conditions -->
-        <a-form-item class="mb-10">
-          <a-checkbox
-            v-decorator="[ 
-              'remember', 
-              { 
-                valuePropName: 'checked', 
-                initialValue: true 
-              } 
-            ]"
-          >
-            I agree to the <a href="#" class="font-bold text-dark">Terms and Conditions</a>
-          </a-checkbox>
         </a-form-item>
 
         <!-- Submit Button -->
         <a-form-item>
           <a-button type="primary" block html-type="submit" class="login-form-button">
-            SIGN UP
+            CREAR USUARIO
           </a-button>
         </a-form-item>
       </a-form>
 
       <p class="font-semibold text-muted text-center">
-        Already have an account?
-        <router-link to="/sign-in" class="font-bold text-dark">Sign In</router-link>
+        Tienes una cuenta?
+        <router-link to="/sign-in" class="font-bold text-dark">Iniciar Sesion</router-link>
       </p>
     </a-card>
     <!-- / Sign Up Form -->
@@ -175,4 +159,36 @@ export default {
 </script>
 
 <style lang="scss">
+.sign-up-container {
+  position: relative;
+}
+
+.btn-volver {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  color: rgb(0, 0, 0);
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-volver:hover {
+  background: rgb(177, 177, 181);
+  color: white;
+}
+
+.btn-volver svg {
+  fill: none;
+  stroke: currentColor;
+}
 </style>

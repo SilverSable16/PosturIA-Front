@@ -25,8 +25,7 @@
 		
 		<!-- Settings Drawer Content -->
 		<div class="drawer-content">
-			<h6>Configurator</h6>
-			<p>See our dashboard options.</p>
+			<h6>Configuracion</h6>
 			<hr>
 			<div class="sidebar-color">
 				<h6>Sidebar Color</h6>
@@ -41,10 +40,10 @@
 			</div>
 			<div class="sidenav-type">
 				<h6>Sidenav Type</h6>
-				<p>Choose between 2 different sidenav types.</p>
+				<p>Elige entre 2 tipos diferentes de barra lateral.</p>
 				<a-radio-group button-style="solid" v-model="sidebarThemeModel" @change="$emit('updateSidebarTheme', $event.target.value)" defaultValue="primary">
-					<a-radio-button value="light">TRANSPARENT</a-radio-button>
-					<a-radio-button value="white">WHITE</a-radio-button>
+					<a-radio-button value="light">Transparente</a-radio-button>
+					<a-radio-button value="white">Blanco</a-radio-button>
 				</a-radio-group>
 			</div>
 			<div class="navbar-fixed">

@@ -1,10 +1,13 @@
+Claro, aquí tienes el código completo con el botón **Cerrar Sesión** añadido debajo de **Edit Profile**, que limpia `localStorage` y redirige a la página inicio:
+
+```vue
 <template>
   <div>
     <!-- Header Background Image -->
-    <div class="profile-nav-bg" style="background-image: url('images/bg-profile.jpg')"></div>
-
-    <!-- Mostrar JSON de profile para depuración -->
-    <pre>{{ profile }}</pre>
+    <div
+      class="profile-nav-bg"
+      style="background-image: url('images/bg-profile.jpg')"
+    ></div>
 
     <!-- User Profile Card -->
     <a-card
@@ -23,15 +26,23 @@
               icon="user"
               style="width: 74px; height: 74px; line-height: 74px;"
             />
-            <div class="avatar-info" style="display: inline-block; margin-left: 16px; vertical-align: middle;">
-              <h4 class="font-semibold m-0">{{ profile.first_name }} {{ profile.last_name }}</h4>
+            <div
+              class="avatar-info"
+              style="display: inline-block; margin-left: 16px; vertical-align: middle;"
+            >
+              <h4 class="font-semibold m-0">
+                {{ profile.first_name }} {{ profile.last_name }}
+              </h4>
               <p>{{ profile.email }}</p>
             </div>
           </a-col>
         </a-row>
       </template>
       <template #extra>
-        <a-button type="link" @click="openEditModal">Edit Profile</a-button>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <a-button type="link" @click="openEditModal">Editar perfil</a-button>
+          <a-button type="link" danger @click="handleLogout">Cerrar Sesión</a-button>
+        </div>
       </template>
     </a-card>
 
@@ -57,13 +68,17 @@
           </div>
           <input
             type="file"
-            accept="image/png, image/jpeg"
+            accept="image/png, image/jpeg, image/jpg"
             @change="handleImageChange"
           />
-          <p class="text-muted" style="font-size:12px; text-align:center;">
+          <p
+            class="text-muted"
+            style="font-size:12px; text-align:center;"
+          >
             Imagen (máx. 5MB, .png o .jpg)
           </p>
         </a-form-item>
+
         <!-- Basic Info -->
         <a-form-item
           label="First Name"
@@ -92,6 +107,7 @@
         <a-form-item label="Date of Birth (YYYY-MM-DD)">
           <a-input v-model="editForm.date_of_birth" />
         </a-form-item>
+
         <!-- Medical Fields -->
         <a-form-item label="Blood Type">
           <a-input v-model="editForm.blood_type" />
@@ -179,29 +195,39 @@ export default {
       // Preload editForm from profile and reset preview
       this.editForm = { ...this.profile };
       // Convert display date back to YYYY-MM-DD
-      if (this.profile.date_of_birth && this.profile.date_of_birth.includes('/')) {
-        const [d, m, y] = this.profile.date_of_birth.split('/');
+      if (
+        this.profile.date_of_birth &&
+        this.profile.date_of_birth.includes("/")
+      ) {
+        const [d, m, y] = this.profile.date_of_birth.split("/");
         this.editForm.date_of_birth = `${y}-${m}-${d}`;
       }
-      this.editImagePreview = '';
+      this.editImagePreview = "";
       this.editing = true;
     },
     handleImageChange(e) {
       const file = e.target.files[0];
       if (!file) return;
       if (file.size > 5 * 1024 * 1024) {
-        message.error('El archivo excede 5MB');
+        message.error("El archivo excede 5MB");
         return;
       }
       const reader = new FileReader();
-      reader.onload = () => { this.editImagePreview = reader.result; };
+      reader.onload = () => {
+        this.editImagePreview = reader.result;
+      };
       reader.readAsDataURL(file);
     },
     async fetchProfileData() {
       try {
         const userId = localStorage.getItem("userId");
-        if (!userId) { this.$router.push('/sign-in'); return; }
-        const response = await axios.get(`https://posturaainodejs.onrender.com/users/${userId}`);
+        if (!userId) {
+          this.$router.push("/sign-in");
+          return;
+        }
+        const response = await axios.get(
+          `https://posturaainodejs.onrender.com/users/${userId}`
+        );
         const data = response.data;
         this.profile = {
           first_name: data.first_name || "N/A",
@@ -227,7 +253,10 @@ export default {
         const userId = localStorage.getItem("userId");
         const payload = { ...this.editForm };
         if (this.editImagePreview) payload.url_imagen = this.editImagePreview;
-        await axios.put(`https://posturaainodejs.onrender.com/users/${userId}`, payload);
+        await axios.put(
+          `https://posturaainodejs.onrender.com/users/${userId}`,
+          payload
+        );
         message.success("Perfil actualizado exitosamente");
         this.editing = false;
         this.fetchProfileData();
@@ -236,9 +265,15 @@ export default {
         message.error("Error al actualizar el perfil");
       }
     },
+    handleLogout() {
+      localStorage.clear();
+      message.success("Sesión cerrada correctamente");
+      this.$router.push("/Inicio");
+    },
   },
 };
 </script>
 
 <style lang="scss">
 </style>
+```

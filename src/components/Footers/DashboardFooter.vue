@@ -7,7 +7,7 @@
 
 				<!-- Footer Copyright Notice -->
 				<p class="copyright">
-					© 2024, Proyecto inteligencia artificial
+					© 2025, Proyecto inteligencia artificial
 				</p>
 				<!-- / Footer Copyright Notice -->
 

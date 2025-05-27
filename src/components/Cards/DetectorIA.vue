@@ -4,18 +4,21 @@
       <video id="videoElement" width="640" height="480" autoplay></video>
       <canvas id="overlay" width="640" height="480" style="position: absolute; top: 0; left: 0;"></canvas>
 
-      <div class="button-container" style="margin-top: 10px;">
+      <!-- Botones con display:flex y gap -->
+      <div class="button-container" style="margin-top: 10px; display: flex; gap: 10px;">
         <button class="camera-btn start" @click="startCamera">Iniciar Cámara</button>
-        <button class="camera-btn stop" @click="stopCamera">Detener Cámara</button>
+        <button class="camera-btn stop"  @click="stopCamera">Detener Cámara</button>
       </div>
 
-      <div>
-        <label for="parte">Parte del cuerpo a analizar:</label>
-        <select v-model="parteSeleccionada" id="parte">
-          <option value="cuello">Cabeza</option>
-          <option value="hombros">Hombros</option>
-        </select>
-      </div>
+      <div class="selector-container">
+  <label for="parte">Parte del cuerpo a analizar:</label>
+  <select v-model="parteSeleccionada" id="parte">
+    <option value="cuello">Cabeza</option>
+    <option value="hombros">Hombros</option>
+  </select>
+</div>
+
+
 
       <div v-if="pose" style="margin-top: 10px; max-height: 300px; overflow-y: auto;">
         <p><strong>Diagnóstico actual:</strong> {{ diagnosis }}</p>
@@ -27,6 +30,8 @@
         </ul>
       </div>
     </div>
+
+
 
     <div>
       <h3>Visualización puntos detectados</h3>
@@ -351,5 +356,64 @@ async savePostureAnalysis(currentPosture, bodyPart, status = 'En progreso') {
 </script>
 
 <style scoped>
-/* Puedes agregar estilos aquí */
+.camera-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.camera-btn:active {
+  transform: scale(0.98);
+}
+
+/* Botón Iniciar – color primario */
+.camera-btn.start {
+  background-color: #4f46e5;   /* púrpura intenso */
+  color: #ffffff;
+}
+.camera-btn.start:hover {
+  background-color: #4338ca;
+}
+
+/* Botón Detener – color de alerta */
+.camera-btn.stop {
+  background-color: #ef4444;   /* rojo */
+  color: #ffffff;
+}
+.camera-btn.stop:hover {
+  background-color: #dc2626;
+}
+.selector-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 10px;
+}
+
+.selector-container label {
+  font-weight: 500;
+  color: #374151; /* gris oscuro */
+}
+
+.selector-container select {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background-color: #ffffff;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.selector-container select:focus {
+  outline: none;
+  border-color: #4f46e5; /* púrpura */
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+}
+
 </style>

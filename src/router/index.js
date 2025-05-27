@@ -11,9 +11,10 @@ let routes = [
   },
   {
     path: '/',
-    name: 'Home',
-    redirect: '/sign-in', // Redirige automáticamente a la página de login
+    name: 'Root',
+    redirect: '/Inicio', // Redirige automáticamente a la página de login
   },
+  
   {
 	path: '/detector',
 	name: 'Detector',
@@ -34,27 +35,29 @@ let routes = [
     component: () => import('../views/Ejercicios.vue'),
   },
   {
-    path: '/rtl',
-    name: 'RTL',
-    layout: "dashboard-rtl",
-    meta: {
-      layoutClass: 'dashboard-rtl',
-    },
-    component: () => import('../views/RTL.vue'),
+    path: '/home',
+    name: 'Home',
+    layout: "dashboard",
+    component: () => import('../views/Home.vue'),
   },
   {
     path: '/profile',
-    name: 'Profile',
+    name: 'Perfil',
     layout: "dashboard",
     meta: {
       layoutClass: 'layout-profile',
     },
-    component: () => import('../views/Profile.vue'),
+    component: () => import('../views/Perfil.vue'),
   },
   {
     path: '/sign-in',
     name: 'Sign-In',
     component: () => import('../views/Sign-In.vue'),
+  },
+  {
+    path: '/Inicio',
+    name: 'inicio',
+    component: () => import('../views/inicio.vue'),
   },
   {
     path: '/sign-up',
