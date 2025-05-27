@@ -1,4 +1,3 @@
-<!-- filepath: c:\Users\aponc\OneDrive\Documentos\Proyecto ia\src\views\Sign-In.vue -->
 <template>
   <div class="sign-in">
     <a-row type="flex" :gutter="[24,24]" justify="space-around" align="middle">
@@ -76,21 +75,23 @@ export default {
       this.form.validateFields(async (err, values) => {
         if (!err) {
           try {
-            const response = await axios.get("https://posturaainodejs.onrender.com/users");
+            // Petición POST al endpoint /login enviando email y password
+            const response = await axios.post("https://posturaainodejs.onrender.com/login", {
+              email: values.email,
+              password: values.password
+            });
 
-            const user = response.data.find(
-              u => u.email === values.email && u.password === values.password
-            );
+            // Extraer token JWT recibido
+            const { token } = response.data;
 
-            if (user) {
-              localStorage.setItem("userId", user.id);
-              this.$router.push(`/profile`);
-            } else {
-              alert("Login failed. Please check your credentials.");
-            }
+            // Guardar token en localStorage
+            localStorage.setItem("token", token);
+
+            // Redirigir al perfil
+            this.$router.push(`/profile`);
           } catch (error) {
             console.error("Error during login:", error);
-            alert("Something went wrong.");
+            alert("Login failed. Please check your credentials.");
           }
         }
       });
